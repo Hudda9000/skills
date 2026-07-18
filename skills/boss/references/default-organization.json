@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "organization": {
+    "name": "BOSS Default Company",
+    "slug": "boss-default"
+  },
+  "departments": {
+    "executive": {
+      "name": "Executive",
+      "charter": "boss://departments/executive"
+    },
+    "product": {
+      "name": "Product & Discovery",
+      "charter": "boss://departments/product"
+    },
+    "engineering": {
+      "name": "Engineering & Delivery",
+      "charter": "boss://departments/engineering"
+    },
+    "assurance": {
+      "name": "Assurance",
+      "charter": "boss://departments/assurance"
+    }
+  },
+  "roles": [
+    {"slug": "boss", "name": "BOSS", "title": "Director", "department": "executive", "lifecycle": "caller"},
+    {"slug": "priya", "name": "Priya", "title": "Product and Domain Lead", "department": "product", "lifecycle": "resident"},
+    {"slug": "mateo", "name": "Mateo", "title": "Staff Architect", "department": "engineering", "lifecycle": "resident"},
+    {"slug": "ellis", "name": "Ellis", "title": "Feature Engineer", "department": "engineering", "lifecycle": "worktree"},
+    {"slug": "nora", "name": "Nora", "title": "QA and Evidence Engineer", "department": "assurance", "lifecycle": "worktree"},
+    {"slug": "sloane", "name": "Sloane", "title": "Standards Reviewer", "department": "assurance", "lifecycle": "resident"},
+    {"slug": "avery", "name": "Avery", "title": "Specification Reviewer", "department": "assurance", "lifecycle": "resident"},
+    {"slug": "jordan", "name": "Jordan", "title": "Release and Integration Engineer", "department": "engineering", "lifecycle": "worktree"},
+    {"slug": "rae", "name": "Rae", "title": "Research Analyst", "department": "product", "lifecycle": "on-demand"},
+    {"slug": "kit", "name": "Kit", "title": "Prototype and UX Specialist", "department": "product", "lifecycle": "worktree"},
+    {"slug": "devon", "name": "Devon", "title": "Bug Investigator", "department": "engineering", "lifecycle": "worktree"}
+  ]
+}
