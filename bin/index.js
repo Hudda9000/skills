@@ -19,39 +19,49 @@ async function run() {
   program
     .option('-r, --repo <url>', 'Source repository URL', DEFAULT_REPO_URL)
     .option('-p, --personal', 'Install to personal configuration (~/.config/opencode/skills)')
-    .option('-l, --local', 'Install to local repository (.opencode/skills)');
+    .option('-l, --local', 'Install to local repository (.opencode/skills)')
+    .option('-t, --target <target>', 'Harness target (agents, opencode, claude, codex)', 'opencode');
 
   program.parse(process.argv);
   const options = program.opts();
 
-  let repoUrl = options.repo;
-  let targetDir;
+  let mode = options.personal ? 'personal' : (options.local ? 'local' : null);
+  let selectedTarget = options.target || 'opencode';
 
-  // Determine target directory
-  if (options.personal) {
-    targetDir = path.join(os.homedir(), '.config/opencode/skills');
-  } else if (options.local) {
-    targetDir = path.join(process.cwd(), '.opencode/skills');
-  } else {
-    // Interactive mode if no flags are provided
-    const answers = await inquirer.prompt([
-       {
-         type: 'select',
-         name: 'mode',
-         message: 'Select installation mode:',
-         choices: [
-           { name: 'Personal (~/.config/opencode/skills)', value: 'personal' },
-           { name: 'Repository (./.opencode/skills)', value: 'local' }
-         ]
-       }
+  if (!mode) {
+    const modeAnswers = await inquirer.prompt([
+      {
+        type: 'select',
+        name: 'mode',
+        message: 'Select installation mode:',
+        choices: [
+          { name: 'Personal (~/.config/...)', value: 'personal' },
+          { name: 'Repository (./...)', value: 'local' }
+        ]
+      }
     ]);
-
-    if (answers.mode === 'personal') {
-      targetDir = path.join(os.homedir(), '.config/opencode/skills');
-    } else {
-      targetDir = path.join(process.cwd(), '.opencode/skills');
-    }
+    mode = modeAnswers.mode;
   }
+
+  if (!options.target) {
+    const targetAnswers = await inquirer.prompt([
+      {
+        type: 'select',
+        name: 'target',
+        message: 'Select harness target:',
+        choices: [
+          { name: '.agents', value: 'agents' },
+          { name: 'OpenCode', value: 'opencode' },
+          { name: 'Claude', value: 'claude' },
+          { name: 'Codex', value: 'codex' }
+        ]
+      }
+    ]);
+    selectedTarget = targetAnswers.target;
+  }
+
+  const baseDir = mode === 'personal' ? path.join(os.homedir(), '.config') : process.cwd();
+  const targetDir = path.join(baseDir, `.${selectedTarget}`, 'skills');
 
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'skill-install-'));
 
