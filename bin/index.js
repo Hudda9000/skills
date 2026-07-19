@@ -24,7 +24,7 @@ async function run() {
 
   program.parse(process.argv);
   const options = program.opts();
-
+  const repoUrl = options.repo;
   let mode = options.personal ? 'personal' : (options.local ? 'local' : null);
   let selectedTarget = options.target || 'opencode';
 
