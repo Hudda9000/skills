@@ -1,13 +1,10 @@
 {
-  "name": "skills-installer",
+  "name": "@hudda9000/skills-installer",
   "version": "1.0.0",
   "description": "CLI tool to install opencode skills personally or to a repository.",
   "main": "bin/index.js",
   "bin": {
     "skills-install": "./bin/index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -19,7 +16,7 @@
     "installer",
     "cli"
   ],
-  "author": "",
+  "author": "Hudda9000",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -31,5 +28,4 @@
     "commander": "^15.0.0",
     "inquirer": "^14.0.2"
   }
-}
 }
