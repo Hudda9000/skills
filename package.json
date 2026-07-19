@@ -4,7 +4,7 @@
   "description": "CLI tool to install opencode skills personally or to a repository.",
   "main": "bin/index.js",
   "bin": {
-    "skills-install": "./bin/index.js"
+    "skills-installer": "./bin/index.js"
   },
   "repository": {
     "type": "git",

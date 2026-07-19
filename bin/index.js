@@ -35,15 +35,15 @@ async function run() {
   } else {
     // Interactive mode if no flags are provided
     const answers = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'mode',
-        message: 'Select installation mode:',
-        choices: [
-          { name: 'Personal (~/.config/operode/skills)', value: 'personal' },
-          { name: 'Repository (./.opencode/skills)', value: 'local' }
-        ]
-      }
+       {
+         type: 'select',
+         name: 'mode',
+         message: 'Select installation mode:',
+         choices: [
+           { name: 'Personal (~/.config/opencode/skills)', value: 'personal' },
+           { name: 'Repository (./.opencode/skills)', value: 'local' }
+         ]
+       }
     ]);
 
     if (answers.mode === 'personal') {
@@ -107,7 +107,9 @@ async function run() {
     console.log(chalk.bold.green('\nInstallation complete! 🎉'));
   } catch (error) {
     console.error(chalk.red(`\nAn error occurred during installation:`), error.message);
-    process.execSync('rm -rf ' + tempDir);
+    try {
+      execSync('rm -rf ' + tempDir);
+    } catch (e) {}
     process.exit(1);
   } finally {
     // Cleanup is handled by the trap in shell, but here we do it explicitly if not using tempDir as a single object
