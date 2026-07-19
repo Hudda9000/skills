@@ -1,6 +1,6 @@
 {
   "name": "@hudda9000/skills-installer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI tool to install opencode skills personally or to a repository.",
   "main": "bin/index.js",
   "bin": {
