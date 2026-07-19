@@ -20,13 +20,13 @@ async function run() {
     .option('-r, --repo <url>', 'Source repository URL', DEFAULT_REPO_URL)
     .option('-p, --personal', 'Install to personal configuration (~/.config/opencode/skills)')
     .option('-l, --local', 'Install to local repository (.opencode/skills)')
-    .option('-t, --target <target>', 'Harness target (agents, opencode, claude, codex)', 'opencode');
+   .option('-t, --target <target>', 'Harness target (agents, opencode, claude, codex)', null);
 
   program.parse(process.argv);
   const options = program.opts();
   const repoUrl = options.repo;
   let mode = options.personal ? 'personal' : (options.local ? 'local' : null);
-  let selectedTarget = options.target || 'opencode';
+  let selectedTarget = options.target;
 
   if (!mode) {
     const modeAnswers = await inquirer.prompt([
@@ -43,7 +43,7 @@ async function run() {
     mode = modeAnswers.mode;
   }
 
-  if (!options.target) {
+  if (!selectedTarget) {
     const targetAnswers = await inquirer.prompt([
       {
         type: 'select',
@@ -54,7 +54,8 @@ async function run() {
           { name: 'OpenCode', value: 'opencode' },
           { name: 'Claude', value: 'claude' },
           { name: 'Codex', value: 'codex' }
-        ]
+        ],
+        default: 'agents'
       }
     ]);
     selectedTarget = targetAnswers.target;
