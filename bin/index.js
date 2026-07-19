@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
-const inquirer = require('inquirer');
+const inquirer = require('inquirer').default || require('inquirer');
 const chalk = require('chalk');
 const { execSync } = require('child_process');
 const path = require('path');
